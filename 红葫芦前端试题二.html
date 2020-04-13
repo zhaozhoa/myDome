@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+
+<body>
+	<h2>这些都是各种各样的节点</h1>
+		<p>这些都是各种各样的节点</p>
+		<div>
+			<ul>
+				<li>这些都是各种各样的节点</li>
+				<li>这些都是各种各样的节点</li>
+				<li>这些都是各种各样的节点</li>
+			</ul>
+			<div>
+				<div>
+					<span>这些都是各种各样的节点</span>
+				</div>
+			</div>
+		</div>
+		<div>
+			<ul>
+				<li>这些都是各种各样的节点</li>
+			</ul>
+			<p>这些都是各种各样的节点</p>
+			<h2>这些都是各种各样的节点</h2>
+			<div>
+				<p>这些都是各种各样的节点</p>
+				<h3>
+					<span>这些都是各种各样的节点</span>
+				</h3>
+			</div>
+		</div>
+		<script type="text/javascript">
+			// 递归起始节点
+			let root = document.body;
+
+			function forDom(root) {
+				let children = root.children;
+				forChildren(children);
+			}
+
+
+			// 遍历上面获取到的节点组成的伪数组，并逐个判断是否还有子节点如果有再执行上面的函数，形成递归
+			function forChildren(children) {
+				for (let i = 0; i < children.length; i++) {
+					let child = children[i];
+					changeDom(child);
+					// 递归出口
+					child.children && forDom(child);
+				}
+			}
+
+			function changeDom(node) {
+				// 给最底层的 dom 添加修改大小动画
+				if (node.children.length === 0) {
+					node.style.border = '1px solid'
+					let domInfo = getDomInfo(node)
+					// 鼠标进入扩大1.3倍
+					node.addEventListener('mouseenter', (e) => {
+						node.style.height = domInfo.height * 1.3 + domInfo.unit
+						node.style.width = domInfo.width * 1.3 + domInfo.unit
+						node.style.fontSize = domInfo.fontSize * 1.3 + domInfo.unit
+						node.style.transition = 'all .5s'
+						e.stopPropagation()
+					})
+
+					// 鼠标离开复原
+					node.addEventListener('mouseleave', (e) => {
+						node.style.height = domInfo.height + domInfo.unit
+						node.style.width = domInfo.width + domInfo.unit
+						node.style.fontSize = domInfo.fontSize + domInfo.unit
+						e.stopPropagation()
+					})
+				}
+			}
+
+
+			function getDomInfo(node) {
+				let fontSize = window.getComputedStyle(node).fontSize
+				let unit = fontSize.replace(/(\d+\.?\d+)([a-zA-Z]*)/g, '$2')
+				fontSize = fontSize.replace(/[a-zA-Z]*/g, '')
+				let height = node.clientHeight
+				let width = node.clientWidth
+				return { fontSize, unit, height, width }
+			}
+
+			forDom(root);
+		// 从根节点开始遍历dom树
+
+
+		</script>
+</body>
+
+</html>
