@@ -1,0 +1,15 @@
+// 通过函数生成媒体查询
+// 通过循环生成媒体查询
+// less 语法中没有 循环语法
+// 可以通过 递归来进行循环
+// 根据数组的长度停止当前循环
+// 给函数的执行增加条件
+// 根据序号判断 @index 从 1 开始
+.adapterMixins(@index) when(@index > 0) {
+  @media (min-width: extract(@adapterDeviceList, @index)) {
+    html{
+      font-size: @baseFontSize / @psdWidth * extract(@adapterDeviceList, @index);
+    }
+  }
+  .adapterMixins(@index - 1);
+}

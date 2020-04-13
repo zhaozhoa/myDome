@@ -1,0 +1,15 @@
+@charset "UTF-8";
+//变量
+// 通过 less 定义数组，存储主流设备的尺寸
+@adapterDeviceList:750px, 720px, 640px, 540px, 480px, 424px, 414px, 400px, 384px, 375px, 360px, 320px;
+// 设计稿尺寸
+@psdWidth: 750px;
+// 预设基准值
+@baseFontSize: 100px;
+
+// 设备的种类（数组的长度）
+// 通过内置函数 length来获取
+@len: length(@adapterDeviceList);
+
+// 主题色
+@snColor: #fabc09;
