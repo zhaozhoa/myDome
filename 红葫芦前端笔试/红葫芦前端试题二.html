@@ -57,6 +57,7 @@
 			function changeDom(node) {
 				// 给最底层的 dom 添加修改大小动画
 				if (node.children.length === 0) {
+					// 为了方便展示效果，给 dom 添加一个边框
 					node.style.border = '1px solid'
 					let domInfo = getDomInfo(node)
 					// 鼠标进入扩大1.3倍
